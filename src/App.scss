@@ -1,0 +1,67 @@
+.container {
+  margin: 1rem
+}
+
+.logo-box {
+  position: relative;
+  height: 4em;
+}
+
+.logo {
+  position: absolute;
+  left: calc(50% - 4.5em);
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .logo.electron {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.todosWrapper {
+  display: flex;
+  flex-direction: column;
+
+  .todoItem {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #000;
+
+    .changeStatus {
+      flex: 0 0 auto;
+      margin-right: 10px;
+    }
+
+    .taskTitle {
+      flex: 1 1 auto;
+    }
+
+    .completed {
+      text-decoration: line-through;
+    }
+
+    .delete {
+      flex: 0 0 auto;
+    }
+  }
+}
