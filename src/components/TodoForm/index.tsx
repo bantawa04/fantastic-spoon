@@ -1,17 +1,19 @@
 import React from "react"
-interface IAddTodo {
+interface ITodoForm {
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   handleBlur: (e: React.FocusEvent<HTMLInputElement>) => void
-  handleSubmit: any
+  handleSubmit?: any
   hasError: boolean
   value: string
+  label?: string
 }
-const AddTodo: React.FC<IAddTodo> = ({
+const TodoForm: React.FC<ITodoForm> = ({
   handleChange,
   handleBlur,
   hasError = false,
   value,
   handleSubmit,
+  label = "Add",
 }) => {
   return (
     <div className="formWrapper">
@@ -29,7 +31,7 @@ const AddTodo: React.FC<IAddTodo> = ({
             </p>
             <p className="control">
               <a className="button is-dark" onClick={(e) => handleSubmit(e)}>
-                Add
+                {label}
               </a>
             </p>
           </div>
@@ -42,4 +44,4 @@ const AddTodo: React.FC<IAddTodo> = ({
   )
 }
 
-export default AddTodo
+export default TodoForm

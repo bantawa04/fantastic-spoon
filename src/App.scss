@@ -60,8 +60,14 @@
       text-decoration: line-through;
     }
 
-    .delete {
-      flex: 0 0 auto;
+    .actions {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      div {
+        cursor: pointer;
+      }
     }
   }
 }

@@ -1,9 +1,8 @@
-import AddTodo from "@/components/AddTodo"
-import { useState } from "react"
-import Hero from "./components/Hero"
+import TodoForm from "@/components/TodoForm"
+import { useEffect, useState } from "react"
 import TodoItem from "./components/TodoItem"
 import Count from "./components/Count"
-
+import { toast } from "bulma-toast"
 interface Todo {
   id?: number | string
   title: string
@@ -20,25 +19,32 @@ function App() {
   })
   const [inputError, setInputError] = useState<boolean>(false)
 
-  const [todos, setTodos] = useState<Todos>({
-    todos: [
-      {
-        id: 1,
-        title: "Test 1",
-        status: false,
-      },
-      {
-        id: 2,
-        title: "Test 2",
-        status: false,
-      },
-      {
-        id: 3,
-        title: "Test 3",
-        status: true,
-      },
-    ],
-    count: 3,
+  const [todos, setTodos] = useState<Todos>(() => {
+    const savedTodos = localStorage.getItem("todos")
+    if (savedTodos) {
+      return JSON.parse(savedTodos)
+    } else {
+      return {
+        todos: [
+          {
+            id: 1,
+            title: "Test 1",
+            status: false,
+          },
+          {
+            id: 2,
+            title: "Test 2",
+            status: false,
+          },
+          {
+            id: 3,
+            title: "Test 3",
+            status: true,
+          },
+        ],
+        count: 3,
+      }
+    }
   })
 
   const handleSubmit = (e: any) => {
@@ -55,7 +61,10 @@ function App() {
       title: todo.title,
       status: todo.status,
     }
-
+    toast({
+      message: "Todo created !",
+      type: "is-success",
+    })
     setTodos((prevState) => ({
       todos: [...prevState.todos, newTodo],
       count: prevState.count + 1,
@@ -91,6 +100,10 @@ function App() {
       count: todos.count - 1,
       todos: updatedTodos,
     }))
+    toast({
+      message: "Todo deleted !",
+      type: "is-success",
+    })
   }
 
   const handleStatus = (id: number) => {
@@ -109,10 +122,13 @@ function App() {
     }))
   }
 
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos))
+  }, [todos])
+
   return (
     <div className="container">
-      <Hero />
-      <AddTodo
+      <TodoForm
         handleChange={handleInputChange}
         hasError={inputError}
         value={todo.title}
